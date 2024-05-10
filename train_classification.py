@@ -111,6 +111,15 @@ val_acc = history.history['val_accuracy']
 loss = history.history['loss']
 val_loss = history.history['val_loss']
 
+# Plotting Loss
+plt.plot(epochs, history.history['loss'], label='Training Loss')
+plt.plot(epochs, history.history['val_loss'], label='Validation Loss')
+plt.title('Training and Validation Loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+plt.show()
+
 model.evaluate(X, y)
 
 test_loss, test_acc = model.evaluate(X_test, y_test, verbose=0)

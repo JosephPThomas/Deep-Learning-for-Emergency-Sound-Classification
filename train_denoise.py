@@ -3,6 +3,7 @@ import tensorflow as tf
 from tensorflow.keras import layers, models
 import librosa
 import os
+import matplotlib.pyplot as plt
 
 # Define a function to load audio files from multiple directories
 def load_audio_files(directories, target_length=None):
@@ -75,10 +76,24 @@ model = denoising_autoencoder(input_shape)
 model.compile(optimizer='adam', loss='mean_squared_error')
 
 # Train the model with noisy audio as input and clean audio as output
-history = model.fit(noisy_audio, clean_audio, epochs=15, batch_size=32, shuffle=True, verbose=1)
+history = model.fit(noisy_audio, clean_audio, epochs=15, batch_size=32, shuffle=True, verbose=1, validation_split=0.2)
+
 
 # Print loss information
 print("Loss:", history.history['loss'])
+
+# Plot training and validation loss
+plt.plot(history.history['loss'], label='Training Loss')
+plt.plot(history.history['val_loss'], label='Validation Loss')
+plt.title('Training and Validation Loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.legend()
+plt.show()
+
+# Print loss information
+print("Training Loss:", history.history['loss'])
+print("Validation Loss:", history.history['val_loss'])
 
 # Save the model in the native Keras format
 model.save('denoising_autoencoder_model.keras')
