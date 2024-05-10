@@ -110,6 +110,13 @@ val_acc = history.history['val_accuracy']
 
 loss = history.history['loss']
 val_loss = history.history['val_loss']
+# Plotting Accuracy
+plt.plot(epochs, acc, label='Training Accuracy')
+plt.title('Training Accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy')
+plt.legend()
+plt.show()
 
 # Plotting Loss
 plt.plot(epochs, history.history['loss'], label='Training Loss')
